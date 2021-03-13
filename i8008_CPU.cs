@@ -324,7 +324,7 @@ namespace i8008_emu
         {
             SP = 0;
             PC = 0;
-            cycles = 20;
+            cycles = 5;
             halted = false;
 
             for (int i = 0; i < registers.Length; i++)
@@ -353,7 +353,7 @@ namespace i8008_emu
             byte portNumber = (byte)(currentOpcode & 0b00001110);
             portNumber >>= 1;
             SetRegisterValue(Registers.A, mainForm.ReadFromPort(portNumber));
-            return 16;
+            return 3;
         }
 
         private byte OUT() //writes the value of register A into the port, specified in the current opcode
@@ -361,7 +361,7 @@ namespace i8008_emu
             byte portNumber = (byte)(currentOpcode & 0b00111110);
             portNumber >>= 1;
             mainForm.WriteToPort(portNumber, GetRegisterValue(Registers.A));
-            return 12;
+            return 2;
         }
 
         private byte LRdRs() //load redister Rd with the value of register Rs
@@ -374,7 +374,7 @@ namespace i8008_emu
 
             registers[Rd] = registers[Rs];
 
-            return 10;
+            return 1;
         }
 
         private byte LRdM() //load register Rd with the value at memory address, stored in registers HL
@@ -387,7 +387,7 @@ namespace i8008_emu
 
             registers[Rd] = Read(memoryAddress);
 
-            return 16;
+            return 3;
         }
 
         private byte LMRs() //load memory cell at address, stored in registers HL, with the value of register Rs
@@ -399,12 +399,12 @@ namespace i8008_emu
 
             Write(memoryAddress, registers[Rs]);
 
-            return 14;
+            return 3;
         }
 
         private byte XXX() //iilegal instruction
         {
-            return 10;
+            return 2;
         }
 
         private byte RFZ() //return, if Zero flag = 0
@@ -417,11 +417,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -438,7 +438,7 @@ namespace i8008_emu
             SetFlag(Flags.Z, temp == 0);
 
             registers[reg] = temp;
-            return 10;
+            return 1;
         }
 
         private byte DCR() //decrement register R
@@ -452,7 +452,7 @@ namespace i8008_emu
             SetFlag(Flags.Z, temp == 0);
 
             registers[reg] = temp;
-            return 10;
+            return 1;
         }
 
         private byte LRI() //load register R with the value located next to the opcode in memory
@@ -462,7 +462,7 @@ namespace i8008_emu
 
             registers[reg] = Fetch();
 
-            return 16;
+            return 3;
         }
 
         private byte HLT() //halts the CPU
@@ -477,7 +477,7 @@ namespace i8008_emu
             temp <<= 1;
             SetFlag(Flags.C, temp > 255);
             SetRegisterValue(Registers.A, (byte)temp);
-            return 10;
+            return 2;
         }
 
         private byte RFC() //return, if Carry = 0
@@ -490,12 +490,12 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
                 
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -507,7 +507,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (0 << 3) | 0b000;
-            return 10;        
+            return 2;        
         }
 
         
@@ -518,7 +518,7 @@ namespace i8008_emu
             SP &= 0b111;
             PC = stack[SP];
             stack[SP] = 0;
-            return 10;
+            return 2;
         }
 
         
@@ -531,7 +531,7 @@ namespace i8008_emu
             temp >>= 1;
             SetFlag(Flags.C, temp > 255);
             SetRegisterValue(Registers.A, (byte)temp);
-            return 10;
+            return 2;
         }
 
         private byte ADI() // A = A + the value located next to the opcode in memory
@@ -544,7 +544,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity(temp));
 
             SetRegisterValue(Registers.A, temp);
-            return 16;
+            return 3;
         }
 
         private byte ACI() // A = Carry + the value located next to the opcode in memory
@@ -556,7 +556,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity(temp));
 
             SetRegisterValue(Registers.A, temp);
-            return 16;
+            return 3;
         }
 
         private byte RST_1() //call subroutine at 0b001000
@@ -565,7 +565,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (1 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
        
@@ -585,11 +585,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;        
+                cyclesToReturn = 2;        
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -606,7 +606,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 10;
+            return 2;
         }
 
         private byte SUI() // A = A - the value located next to the opcode in memory
@@ -619,7 +619,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity(temp));
 
             SetRegisterValue(Registers.A, temp);
-            return 16;
+            return 3;
         }
 
         private byte RST_2() //call subroutine at 0b010000
@@ -628,7 +628,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (2 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         
@@ -646,7 +646,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 10;
+            return 2;
         }
 
         private byte RFP() //return, if Parity flag = 0
@@ -659,11 +659,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -678,7 +678,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity(temp));
 
             SetRegisterValue(Registers.A, temp);
-            return 16;
+            return 3;
         }
 
         private byte RST_3() //call subroutine at 0b011000
@@ -687,14 +687,14 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (3 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         
 
         private byte NOP() //no operation
         {
-            return 10;
+            return 2;
         }
 
         
@@ -709,11 +709,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -729,7 +729,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, temp);
 
-            return 16;
+            return 3;
         }
 
         private byte RST_4() //call subroutine at 0b100000
@@ -738,7 +738,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (4 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         
@@ -755,11 +755,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -775,7 +775,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, temp);
 
-            return 16;
+            return 3;
         }
 
         private byte RST_5() //call subroutine at 0b101000
@@ -784,7 +784,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (5 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         
@@ -801,11 +801,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 3;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -821,7 +821,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, temp);
 
-            return 16;
+            return 3;
         }
 
         private byte RST_6() //call subroutine at 0b110000
@@ -830,7 +830,7 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (6 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         
@@ -845,11 +845,11 @@ namespace i8008_emu
                 SP &= 0b111;
                 PC = stack[SP];
                 stack[SP] = 0;
-                cyclesToReturn = 10;
+                cyclesToReturn = 2;
             }
             else
             {
-                cyclesToReturn = 6;
+                cyclesToReturn = 1;
             }
 
             return cyclesToReturn;
@@ -863,7 +863,7 @@ namespace i8008_emu
             SetFlag(Flags.Z, temp == 0);
             SetFlag(Flags.P, CheckParity(temp));
 
-            return 16;
+            return 3;
         }
 
         private byte RST_7() //call subroutine at 0b111000
@@ -872,14 +872,14 @@ namespace i8008_emu
             stack[SP] = PC;
             SP++;
             PC = (7 << 3) | 0b000;
-            return 10;
+            return 2;
         }
 
         private byte LMI()
         {
             UInt16 memoryLocation = (UInt16)((GetRegisterValue(Registers.H) << 8) | GetRegisterValue(Registers.L));
             Write(memoryLocation, Fetch());
-            return 18;
+            return 3;
         }
 
         private byte JFC()
@@ -890,11 +890,11 @@ namespace i8008_emu
             if (!GetFlag(Flags.C))
             {               
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -911,11 +911,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -925,7 +925,7 @@ namespace i8008_emu
             byte lowPart = Fetch(), highPart = Fetch();
             UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
             PC = addressToJumpAt;
-            return 22;
+            return 4;
         }
 
         private byte CAL()
@@ -936,7 +936,7 @@ namespace i8008_emu
             SP++;
             UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
             PC = addressToJumpAt;
-            return 22;
+            return 4;
         }
 
         private byte JFZ()
@@ -947,11 +947,11 @@ namespace i8008_emu
             if (!GetFlag(Flags.Z))
             {
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -967,11 +967,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -984,11 +984,11 @@ namespace i8008_emu
             if (!GetFlag(Flags.S))
             {                
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1004,11 +1004,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1021,11 +1021,11 @@ namespace i8008_emu
             if (!GetFlag(Flags.P))
             {         
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1042,11 +1042,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1059,11 +1059,11 @@ namespace i8008_emu
             if (GetFlag(Flags.C))
             {
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1080,11 +1080,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1097,11 +1097,11 @@ namespace i8008_emu
             if (GetFlag(Flags.Z))
             {
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1118,11 +1118,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1135,11 +1135,11 @@ namespace i8008_emu
             if (GetFlag(Flags.S))
             {
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1156,11 +1156,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1173,11 +1173,11 @@ namespace i8008_emu
             if (GetFlag(Flags.P))
             {
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1194,11 +1194,11 @@ namespace i8008_emu
                 SP++;
                 UInt16 addressToJumpAt = (UInt16)((highPart << 8) | lowPart);
                 PC = addressToJumpAt;
-                cyclesToReturn = 22;
+                cyclesToReturn = 4;
             }
             else
             {
-                cyclesToReturn = 18;
+                cyclesToReturn = 3;
             }
             return cyclesToReturn;
         }
@@ -1217,7 +1217,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 10;
+            return 2;
         }
 
         private byte ADM() //A = A + the value of memory cell at address, stored in registers HL
@@ -1233,7 +1233,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 16;
+            return 3;
         }
 
         private byte ACR() //A = Carry + the value of register R
@@ -1250,7 +1250,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 10;
+            return 2;
         }
 
         private byte ACM() //A = Carry + the value of memory cell at address, stored in registers HL
@@ -1266,7 +1266,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 16;
+            return 3;
         }
 
         private byte SUR() //A = A - register R
@@ -1283,7 +1283,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 10;
+            return 2;
         }
 
         private byte SUM() //A = A - the value of memory cell at address, stored in registers HL
@@ -1299,7 +1299,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 16;
+            return 3;
         }
 
         private byte SBR() //A = A - (Carry + the value of register R)
@@ -1316,7 +1316,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 10;
+            return 2;
         }
 
         private byte SBM() //A = A - (Carry + the value of memory cell at address, stored in registers HL)
@@ -1332,7 +1332,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)(temp & 0xFF));
 
-            return 16;
+            return 3;
         }
 
         private byte NDR() //A = A & the value of register R
@@ -1349,7 +1349,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 10;
+            return 2;
         }
 
 
@@ -1366,7 +1366,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 16;
+            return 3;
         }
 
         private byte XRR() //A = A ^ R
@@ -1383,7 +1383,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 10;
+            return 2;
         }
 
         private byte XRM() //A = A ^ M
@@ -1399,7 +1399,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 16;
+            return 3;
         }
 
         private byte ORR() //A = A | R
@@ -1416,7 +1416,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 10;
+            return 2;
         }
 
         private byte ORM() //A = A | M
@@ -1432,7 +1432,7 @@ namespace i8008_emu
 
             SetRegisterValue(Registers.A, (byte)temp);
 
-            return 16;
+            return 3;
         }
 
         private byte CPR() //compare A with R
@@ -1447,7 +1447,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity((byte)temp));
             SetFlag(Flags.C, temp > 255);
 
-            return 10;
+            return 2;
         }
 
         private byte CPM()
@@ -1461,7 +1461,7 @@ namespace i8008_emu
             SetFlag(Flags.P, CheckParity((byte)temp));
             SetFlag(Flags.C, temp > 255);
 
-            return 16;
+            return 3;
         }
     }
 }
