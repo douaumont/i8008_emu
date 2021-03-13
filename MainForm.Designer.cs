@@ -32,12 +32,12 @@ namespace i8008_emu_GUI
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MemoryGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.InputPortsGroupBox = new System.Windows.Forms.GroupBox();
             this.InputPortSelection = new System.Windows.Forms.ComboBox();
             this.ReadFromInputPortButton = new System.Windows.Forms.Button();
             this.WriteToInputPortButton = new System.Windows.Forms.Button();
             this.InputValueForPort = new System.Windows.Forms.TextBox();
-            this.OutputPortsGtoupBox = new System.Windows.Forms.GroupBox();
+            this.OutputPortsGroupBox = new System.Windows.Forms.GroupBox();
             this.OutputPortsRichTextBox = new System.Windows.Forms.RichTextBox();
             this.PageNumberTextBox = new System.Windows.Forms.TextBox();
             this.NextPageButton = new System.Windows.Forms.Button();
@@ -68,8 +68,8 @@ namespace i8008_emu_GUI
             this.LoadMemoryButton = new System.Windows.Forms.ToolStripButton();
             this.ResetMemoryButton = new System.Windows.Forms.ToolStripButton();
             this.MemoryGroupBox.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.OutputPortsGtoupBox.SuspendLayout();
+            this.InputPortsGroupBox.SuspendLayout();
+            this.OutputPortsGroupBox.SuspendLayout();
             this.ProcessorStatusGroupBox.SuspendLayout();
             this.StackGroupBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -81,8 +81,8 @@ namespace i8008_emu_GUI
             // 
             // MemoryGroupBox
             // 
-            this.MemoryGroupBox.Controls.Add(this.groupBox3);
-            this.MemoryGroupBox.Controls.Add(this.OutputPortsGtoupBox);
+            this.MemoryGroupBox.Controls.Add(this.InputPortsGroupBox);
+            this.MemoryGroupBox.Controls.Add(this.OutputPortsGroupBox);
             this.MemoryGroupBox.Controls.Add(this.PageNumberTextBox);
             this.MemoryGroupBox.Controls.Add(this.NextPageButton);
             this.MemoryGroupBox.Controls.Add(this.PreviousPageButton);
@@ -95,27 +95,27 @@ namespace i8008_emu_GUI
             this.MemoryGroupBox.TabStop = false;
             this.MemoryGroupBox.Text = "Memory";
             // 
-            // groupBox3
+            // InputPortsGroupBox
             // 
-            this.groupBox3.Controls.Add(this.InputPortSelection);
-            this.groupBox3.Controls.Add(this.ReadFromInputPortButton);
-            this.groupBox3.Controls.Add(this.WriteToInputPortButton);
-            this.groupBox3.Controls.Add(this.InputValueForPort);
-            this.groupBox3.Location = new System.Drawing.Point(6, 305);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox3.Size = new System.Drawing.Size(183, 214);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Input Ports";
+            this.InputPortsGroupBox.Controls.Add(this.InputPortSelection);
+            this.InputPortsGroupBox.Controls.Add(this.ReadFromInputPortButton);
+            this.InputPortsGroupBox.Controls.Add(this.WriteToInputPortButton);
+            this.InputPortsGroupBox.Controls.Add(this.InputValueForPort);
+            this.InputPortsGroupBox.Location = new System.Drawing.Point(6, 305);
+            this.InputPortsGroupBox.Margin = new System.Windows.Forms.Padding(2);
+            this.InputPortsGroupBox.Name = "InputPortsGroupBox";
+            this.InputPortsGroupBox.Padding = new System.Windows.Forms.Padding(2);
+            this.InputPortsGroupBox.Size = new System.Drawing.Size(183, 214);
+            this.InputPortsGroupBox.TabIndex = 5;
+            this.InputPortsGroupBox.TabStop = false;
+            this.InputPortsGroupBox.Text = "Input Ports";
             // 
             // InputPortSelection
             // 
             this.InputPortSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.InputPortSelection.FormattingEnabled = true;
             this.InputPortSelection.Location = new System.Drawing.Point(0, 19);
-            this.InputPortSelection.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InputPortSelection.Margin = new System.Windows.Forms.Padding(2);
             this.InputPortSelection.Name = "InputPortSelection";
             this.InputPortSelection.Size = new System.Drawing.Size(183, 26);
             this.InputPortSelection.TabIndex = 3;
@@ -124,7 +124,7 @@ namespace i8008_emu_GUI
             // 
             this.ReadFromInputPortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ReadFromInputPortButton.Location = new System.Drawing.Point(93, 70);
-            this.ReadFromInputPortButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ReadFromInputPortButton.Margin = new System.Windows.Forms.Padding(2);
             this.ReadFromInputPortButton.Name = "ReadFromInputPortButton";
             this.ReadFromInputPortButton.Size = new System.Drawing.Size(90, 26);
             this.ReadFromInputPortButton.TabIndex = 2;
@@ -136,7 +136,7 @@ namespace i8008_emu_GUI
             // 
             this.WriteToInputPortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.WriteToInputPortButton.Location = new System.Drawing.Point(0, 70);
-            this.WriteToInputPortButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteToInputPortButton.Margin = new System.Windows.Forms.Padding(2);
             this.WriteToInputPortButton.Name = "WriteToInputPortButton";
             this.WriteToInputPortButton.Size = new System.Drawing.Size(91, 26);
             this.WriteToInputPortButton.TabIndex = 1;
@@ -148,30 +148,30 @@ namespace i8008_emu_GUI
             // 
             this.InputValueForPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.InputValueForPort.Location = new System.Drawing.Point(0, 45);
-            this.InputValueForPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InputValueForPort.Margin = new System.Windows.Forms.Padding(2);
             this.InputValueForPort.Name = "InputValueForPort";
             this.InputValueForPort.Size = new System.Drawing.Size(183, 24);
             this.InputValueForPort.TabIndex = 0;
             this.InputValueForPort.KeyUp += new System.Windows.Forms.KeyEventHandler(this.InputValueForPort_KeyUp);
             // 
-            // OutputPortsGtoupBox
+            // OutputPortsGroupBox
             // 
-            this.OutputPortsGtoupBox.Controls.Add(this.OutputPortsRichTextBox);
-            this.OutputPortsGtoupBox.Location = new System.Drawing.Point(200, 305);
-            this.OutputPortsGtoupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.OutputPortsGtoupBox.Name = "OutputPortsGtoupBox";
-            this.OutputPortsGtoupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.OutputPortsGtoupBox.Size = new System.Drawing.Size(183, 214);
-            this.OutputPortsGtoupBox.TabIndex = 4;
-            this.OutputPortsGtoupBox.TabStop = false;
-            this.OutputPortsGtoupBox.Text = "Output Ports";
+            this.OutputPortsGroupBox.Controls.Add(this.OutputPortsRichTextBox);
+            this.OutputPortsGroupBox.Location = new System.Drawing.Point(200, 305);
+            this.OutputPortsGroupBox.Margin = new System.Windows.Forms.Padding(2);
+            this.OutputPortsGroupBox.Name = "OutputPortsGroupBox";
+            this.OutputPortsGroupBox.Padding = new System.Windows.Forms.Padding(2);
+            this.OutputPortsGroupBox.Size = new System.Drawing.Size(183, 214);
+            this.OutputPortsGroupBox.TabIndex = 4;
+            this.OutputPortsGroupBox.TabStop = false;
+            this.OutputPortsGroupBox.Text = "Output Ports";
             // 
             // OutputPortsRichTextBox
             // 
             this.OutputPortsRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.OutputPortsRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.OutputPortsRichTextBox.Location = new System.Drawing.Point(4, 19);
-            this.OutputPortsRichTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OutputPortsRichTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.OutputPortsRichTextBox.Name = "OutputPortsRichTextBox";
             this.OutputPortsRichTextBox.ReadOnly = true;
             this.OutputPortsRichTextBox.Size = new System.Drawing.Size(177, 192);
@@ -514,9 +514,9 @@ namespace i8008_emu_GUI
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.MemoryGroupBox.ResumeLayout(false);
             this.MemoryGroupBox.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.OutputPortsGtoupBox.ResumeLayout(false);
+            this.InputPortsGroupBox.ResumeLayout(false);
+            this.InputPortsGroupBox.PerformLayout();
+            this.OutputPortsGroupBox.ResumeLayout(false);
             this.ProcessorStatusGroupBox.ResumeLayout(false);
             this.StackGroupBox.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -562,8 +562,8 @@ namespace i8008_emu_GUI
         private System.Windows.Forms.RichTextBox StackRichTextBox;
         private System.Windows.Forms.Label FrequencyLabel;
         private System.Windows.Forms.ToolStripButton ResetMemoryButton;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox OutputPortsGtoupBox;
+        private System.Windows.Forms.GroupBox InputPortsGroupBox;
+        private System.Windows.Forms.GroupBox OutputPortsGroupBox;
         private System.Windows.Forms.RichTextBox OutputPortsRichTextBox;
         private System.Windows.Forms.Button ReadFromInputPortButton;
         private System.Windows.Forms.Button WriteToInputPortButton;

@@ -27,15 +27,16 @@ namespace i8008_emu_GUI
                 ports[i] = 0;
             }
 
-            OutputPortsRichTextBox.Text = "";
+            string outputPortsString = "";
             for (int i = 8; i < ports.Length; i++)
             {
-                OutputPortsRichTextBox.Text += i.ToString() + ": " + ports[i].ToString();
+                outputPortsString += i.ToString() + ": " + ports[i].ToString();
                 if (i != ports.Length - 1)
                 {
-                    OutputPortsRichTextBox.Text += "\n";
+                    outputPortsString += "\n";
                 }
             }
+            OutputPortsRichTextBox.Text = outputPortsString;
 
             for (int i = 0; i < 8; i++)
             {
@@ -71,15 +72,16 @@ namespace i8008_emu_GUI
             PC_Label.Text = "PC: 0x" + CPU.ProgramCounter.ToString("X4");
             SP_Label.Text = "SP: " + CPU.StackPointer.ToString();
             HaltedLabel.Text = "Halted: " + CPU.Halted.ToString();
-            OutputPortsRichTextBox.Text = "";
+            string outputPortsString = "";
             for (int i = 8; i < ports.Length; i++)
             {
-                OutputPortsRichTextBox.Text += i.ToString() + ": " + ports[i].ToString();
+                outputPortsString += i.ToString() + ": " + ports[i].ToString();
                 if (i != ports.Length - 1)
                 {
-                    OutputPortsRichTextBox.Text += "\n";
+                    outputPortsString += "\n";
                 }
             }
+            OutputPortsRichTextBox.Text = outputPortsString;
         }
 
         private void UpdateMemoryTextBox(byte[] memory)
