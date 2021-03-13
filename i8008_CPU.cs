@@ -322,6 +322,7 @@ namespace i8008_emu
 
         public void Reset()
         {
+            SP = 0;
             PC = 0;
             cycles = 20;
             halted = false;
@@ -334,6 +335,11 @@ namespace i8008_emu
             for (int i = 0; i < flags.Length; i++)
             {
                 flags[i] = false;
+            }
+
+            for (int i = 0; i < stack.Length; i++)
+            {
+                stack[i] = 0;
             }
         }
 
