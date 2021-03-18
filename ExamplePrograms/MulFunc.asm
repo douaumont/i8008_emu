@@ -1,17 +1,13 @@
 ;Program of multiplying two numbers
-
-lhi number[h]
-lli number[l]
-lbm
-lhi multiplier[h]
-lli multiplier[l]
-lcm
+;port 0 -number to be multiplied, port 1 - multiplier, port 8 - result of multiplying
+inp 0
+lba
+inp 1
+lca
 cal mulFunction
+out 8
 hlt
-number:
-db 10
-multiplier:
-db 5
+
 
 
 mulFunction: ;b - number to be multiplied, c - multiplier, a - result of multiplying

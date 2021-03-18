@@ -1241,7 +1241,7 @@ namespace i8008_emu
             byte R;
             R = (byte)(currentOpcode & 0b00000111);
 
-            UInt16 temp = (UInt16)(GetFlag(Flags.C) ? 1 : 0 + (UInt16)registers[R]);
+            UInt16 temp = (UInt16)( (GetFlag(Flags.C) ? 1 : 0) + (UInt16)registers[R]);
 
             SetFlag(Flags.C, temp > 255);
             SetFlag(Flags.Z, (temp & 0xFF) == 0);
@@ -1257,7 +1257,7 @@ namespace i8008_emu
         {
             UInt16 memoryAddress = (UInt16)((GetRegisterValue(Registers.H) << 8) | GetRegisterValue(Registers.L));
 
-            UInt16 temp = (UInt16)(GetFlag(Flags.C) ? 1 : 0 + Read(memoryAddress));
+            UInt16 temp = (UInt16)((GetFlag(Flags.C) ? 1 : 0) + Read(memoryAddress));
 
             SetFlag(Flags.C, temp > 255);
             SetFlag(Flags.Z, (temp & 0xFF) == 0);
@@ -1307,7 +1307,7 @@ namespace i8008_emu
             byte R;
             R = (byte)(currentOpcode & 0b00000111);
 
-            UInt16 temp = (UInt16)( GetRegisterValue(Registers.A) - (GetFlag(Flags.C) ? 1 : 0 + registers[R]));
+            UInt16 temp = (UInt16)( GetRegisterValue(Registers.A) - ((GetFlag(Flags.C) ? 1 : 0) + registers[R]));
 
             SetFlag(Flags.C, temp > 255);
             SetFlag(Flags.Z, (temp & 0xFF) == 0);
@@ -1323,7 +1323,7 @@ namespace i8008_emu
         {
             UInt16 memoryAddress = (UInt16)((GetRegisterValue(Registers.H) << 8) | GetRegisterValue(Registers.L));
 
-            UInt16 temp = (UInt16)(GetRegisterValue(Registers.A) - (GetFlag(Flags.C) ? 1 : 0 + Read(memoryAddress)));
+            UInt16 temp = (UInt16)(GetRegisterValue(Registers.A) - ((GetFlag(Flags.C) ? 1 : 0) + Read(memoryAddress)));
 
             SetFlag(Flags.C, temp > 255);
             SetFlag(Flags.Z, (temp & 0xFF) == 0);

@@ -20,6 +20,11 @@ lli second[l]
 lma
 
 ctc update
+lam
+out 9
+dcl
+lam
+out 8
 jmp fibonacci
 
 first:
@@ -35,4 +40,5 @@ lmi 1
 lhi second[h]
 lli second[l]
 lmi 1
+ret
 

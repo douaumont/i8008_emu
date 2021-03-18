@@ -44,7 +44,7 @@ namespace i8008_emu_GUI
             }
             InputPortSelection.SelectedIndex = 0;
 
-            this.UpdateWindow();
+            this.UpdateWindow(true);
 
             StopButton.Enabled = false;
         }
@@ -57,56 +57,62 @@ namespace i8008_emu_GUI
         public void WriteToPort(byte portNumber, byte value)
         {
             ports[portNumber] = value;
-            this.UpdateWindow();
+            this.UpdateWindow(true);
         }
 
-        private void UpdateWindow()
+        private void UpdateWindow(bool updateAnyway = false)
         {
-            StackRichTextBox.Text = CPU.GetStack();
-            UpdateMemoryTextBox(CPU.GetMemoryPage(currentMemoryPage));
-            PageNumberTextBox.Text = currentMemoryPage.ToString();
-            RegistersRichTextBox.Text = CPU.GetRegisters();
-            FlagsRichTextBox.Text = CPU.GetFalgs();
-            DisassembledLabel.Text = "Disassembled: " + CPU.DisassembleCurrentOpcode();
-            CyclesLabel.Text = "Cycles: " + CPU.Cycles.ToString();
-            PC_Label.Text = "PC: 0x" + CPU.ProgramCounter.ToString("X4");
-            SP_Label.Text = "SP: " + CPU.StackPointer.ToString();
-            HaltedLabel.Text = "Halted: " + CPU.Halted.ToString();
-            string outputPortsString = "";
-            for (int i = 8; i < ports.Length; i++)
+            if (CPU.Cycles == 0 || updateAnyway) 
             {
-                outputPortsString += i.ToString() + ": " + ports[i].ToString();
-                if (i != ports.Length - 1)
+                StackRichTextBox.Text = CPU.GetStack();
+                UpdateMemoryTextBox(CPU.GetMemoryPage(currentMemoryPage));
+                PageNumberTextBox.Text = currentMemoryPage.ToString();
+                RegistersRichTextBox.Text = CPU.GetRegisters();
+                FlagsRichTextBox.Text = CPU.GetFalgs();
+                DisassembledLabel.Text = "Disassembled: " + CPU.DisassembleCurrentOpcode();
+                CyclesLabel.Text = "Cycles: " + CPU.Cycles.ToString();
+                PC_Label.Text = "PC: 0x" + CPU.ProgramCounter.ToString("X4");
+                SP_Label.Text = "SP: " + CPU.StackPointer.ToString();
+                HaltedLabel.Text = "Halted: " + CPU.Halted.ToString();
+                string outputPortsString = "";
+                for (int i = 8; i < ports.Length; i++)
                 {
-                    outputPortsString += "\n";
+                    outputPortsString += i.ToString() + ": " + ports[i].ToString();
+                    if (i != ports.Length - 1)
+                    {
+                        outputPortsString += "\n";
+                    }
                 }
+                OutputPortsRichTextBox.Text = outputPortsString;
             }
-            OutputPortsRichTextBox.Text = outputPortsString;
         }
 
         private void UpdateMemoryTextBox(byte[] memory)
         {
-            MemoryRichTextBox.Text = "   ";
+            string memoryPage;
+            MemoryRichTextBox.Text = "";
+            memoryPage = "   ";
 
             for (int i = 0; i < 16; i++)
             {
-                MemoryRichTextBox.Text += string.Format("x{0, -2}", i.ToString("X"));
+                memoryPage += string.Format("x{0, -2}", i.ToString("X"));
             }
 
-            MemoryRichTextBox.Text += "\n";
+            memoryPage += "\n";
 
             for (int i = 0; i < 16; i++)
             {
-                MemoryRichTextBox.Text += i.ToString("X") + "x" + " ";
+                memoryPage += i.ToString("X") + "x" + " ";
                 for (int j = 0; j < 16; j++)
                 {
-                    MemoryRichTextBox.Text += memory[i * 16 + j].ToString("X2") + " ";
+                    memoryPage += memory[i * 16 + j].ToString("X2") + " ";
                 }
-                MemoryRichTextBox.Text += "\n";
+                memoryPage += "\n";
             }
+            MemoryRichTextBox.Text = memoryPage;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void NextMemoryPageButton_Click(object sender, EventArgs e)
         {
             if (currentMemoryPage < 56)
             {
@@ -116,7 +122,7 @@ namespace i8008_emu_GUI
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void PriviuosMemoryPageButton_Click(object sender, EventArgs e)
         {
             if (currentMemoryPage > 1)
             {
@@ -165,7 +171,7 @@ namespace i8008_emu_GUI
             {
                 MessageBox.Show("Input file cannot be opened!", "Error");
             }
-            this.UpdateWindow();
+            this.UpdateWindow(true);
         }
 
         private void MainClock_Tick(object sender, EventArgs e)
@@ -204,7 +210,7 @@ namespace i8008_emu_GUI
         private void ResetButton_Click(object sender, EventArgs e)
         {
             CPU.Reset();
-            this.UpdateWindow();
+            this.UpdateWindow(true);
 
         }
 
@@ -217,7 +223,7 @@ namespace i8008_emu_GUI
 
             CPU.Cycle();
 
-            this.UpdateWindow();
+            this.UpdateWindow(true);
         }
 
         private void HaltedLabel_TextChanged(object sender, EventArgs e)
@@ -235,7 +241,7 @@ namespace i8008_emu_GUI
         private void ResetMemoryButton_Click(object sender, EventArgs e)
         {
             CPU.ResetMemory();
-            this.UpdateWindow();
+            this.UpdateWindow(true);
         }
 
         private void WriteToInputPortButton_Click(object sender, EventArgs e)
@@ -270,6 +276,15 @@ namespace i8008_emu_GUI
                     MessageBox.Show("The value for port must fit in 8 bits!", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void ResetPortsButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < ports.Length; i++)
+            {
+                ports[i] = 0;
+            }
+            this.UpdateWindow(true);
         }
     }
 }
