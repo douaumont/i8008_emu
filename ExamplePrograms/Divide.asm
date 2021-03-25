@@ -15,13 +15,18 @@ hlt
 
 div:
 lad
+cpe
+jtc cannotBeDivided
 loop:
 sue
 inb
 cpe
-jfs loop
+jfc loop
 lca
 ret
 
+cannotBeDivided:
+out 9
+hlt
 
 

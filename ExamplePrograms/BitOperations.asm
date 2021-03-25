@@ -11,4 +11,8 @@ lai $BC
 lci $0F
 ndc ;the result will be $0C
 
+;NOT operation
+lai $AA
+xri $FF ;the result will be $55
+
 hlt
