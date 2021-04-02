@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Text;
 
 namespace i8008_emu_GUI
 {
@@ -60,7 +61,7 @@ namespace i8008_emu_GUI
             this.UpdateWindow(true);
         }
 
-        private void UpdateWindow(bool updateAnyway = false)
+        private void UpdateWindow(bool updateAnyway = false) //updateAnyway flag is nessecary, because it reduces amount of updates while executing an instruction
         {
             if (CPU.Cycles == 0 || updateAnyway) 
             {
@@ -74,42 +75,46 @@ namespace i8008_emu_GUI
                 PC_Label.Text = "PC: 0x" + CPU.ProgramCounter.ToString("X4");
                 SP_Label.Text = "SP: " + CPU.StackPointer.ToString();
                 HaltedLabel.Text = "Halted: " + CPU.Halted.ToString();
-                string outputPortsString = "";
-                for (int i = 8; i < ports.Length; i++)
-                {
-                    outputPortsString += i.ToString() + ": " + ports[i].ToString();
-                    if (i != ports.Length - 1)
-                    {
-                        outputPortsString += "\n";
-                    }
-                }
-                OutputPortsRichTextBox.Text = outputPortsString;
+                UpdateOutputPortsTextBox();
             }
+        }
+
+        private void UpdateOutputPortsTextBox()
+        {
+            StringBuilder outputPortsStr = new StringBuilder();
+
+            outputPortsStr.AppendFormat("{0}: {1}", 8, ports[8]);
+            for (int i = 9; i < ports.Length; i++)
+            {
+                outputPortsStr.Append("\n");
+                outputPortsStr.AppendFormat("{0}: {1}", i, ports[i]);
+            }
+
+            OutputPortsRichTextBox.Text = outputPortsStr.ToString();
         }
 
         private void UpdateMemoryTextBox(byte[] memory)
         {
-            string memoryPage;
-            MemoryRichTextBox.Text = "";
-            memoryPage = "   ";
+            StringBuilder memoryPage = new StringBuilder();
+            memoryPage.Append("   ");
 
             for (int i = 0; i < 16; i++)
             {
-                memoryPage += string.Format("x{0, -2}", i.ToString("X"));
+                memoryPage.Append(string.Format("x{0, -2}", i.ToString("X")));
             }
 
-            memoryPage += "\n";
+            memoryPage.Append("\n");
 
             for (int i = 0; i < 16; i++)
             {
-                memoryPage += i.ToString("X") + "x" + " ";
+                memoryPage.AppendFormat("{0}x ", i.ToString("X"));
                 for (int j = 0; j < 16; j++)
                 {
-                    memoryPage += memory[i * 16 + j].ToString("X2") + " ";
+                    memoryPage.AppendFormat("{0} ", memory[i * 16 + j].ToString("X2"));
                 }
-                memoryPage += "\n";
+                memoryPage.Append("\n");
             }
-            MemoryRichTextBox.Text = memoryPage;
+            MemoryRichTextBox.Text = memoryPage.ToString();
         }
 
         private void NextMemoryPageButton_Click(object sender, EventArgs e)
@@ -177,6 +182,7 @@ namespace i8008_emu_GUI
         private void MainClock_Tick(object sender, EventArgs e)
         {
             CPU.Cycle();
+            CyclesLabel.Text = "Cycles: " + CPU.Cycles.ToString();
             this.UpdateWindow();
             if (CPU.Halted)
             {
@@ -285,6 +291,46 @@ namespace i8008_emu_GUI
                 ports[i] = 0;
             }
             this.UpdateWindow(true);
+        }
+
+        private void ResetEverythingButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < ports.Length; i++)
+            {
+                ports[i] = 0;
+            }
+            CPU.ResetMemory();
+            CPU.Reset();
+            this.UpdateWindow(true);
+        }
+
+        private void FrequencyLabel_Click(object sender, EventArgs e)
+        {
+            DialogForm frequencyInput = new DialogForm("", "Enter the new frequency");
+            int frequency;
+
+            if (frequencyInput.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    frequency = int.Parse(frequencyInput.InputValue);
+                    if (frequency > 0 && frequency <= 1000)
+                    {
+                        double interval = 1 / (double)frequency;
+                        interval *= 1000.0;
+                        MainClock.Interval = (int)Math.Round(interval);
+                        FrequencyLabel.Text = "Frequency: " + frequency.ToString() + " Hz";
+                    }
+                    else
+                    {
+                        MessageBox.Show("The value must be in range from 1 to 1000 Hz!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(excep.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

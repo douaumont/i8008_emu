@@ -169,19 +169,19 @@ namespace i8008_emu
 
         public string GetStack()
         {
-            string stackString = "";
+            StringBuilder stackString = new StringBuilder();
+
 
             for (int i = 0; i < stack.Length; i++)
             {
-                stackString += i.ToString() + ": " + stack[i].ToString("X4");
+                stackString.AppendFormat("{0}: {1}", i, stack[i].ToString("X4"));
                 if (i == (SP & 0b111))
                 {
-                    stackString += " <";
+                    stackString.Append(" <");
                 }
-                stackString += "\n";
+                stackString.Append("\n");
             }
-
-            return stackString;
+            return stackString.ToString();
         }
 
         public byte[] GetMemoryPage(byte pageNumber)
@@ -208,49 +208,51 @@ namespace i8008_emu
         public string DisassembleCurrentOpcode()
         {
             Instruction currentInst = instructions[Read(PC)];
-            string dissambled = currentInst.Mnemonic;
+            StringBuilder dissambled = new StringBuilder(currentInst.Mnemonic);
+            UInt16 temp;
             switch(currentInst.Length)
             {
                 case 2:
-                    dissambled += " 0x" + Read((UInt16)(PC + 1)).ToString("X2");
+                    temp = Read((UInt16)(PC + 1));
+                    dissambled.AppendFormat(" 0x{0}", temp.ToString("X2"));
                     break;
 
                 case 3:
-                    UInt16 temp = (UInt16)((Read((UInt16)(PC + 2)) << 8) | Read((UInt16)(PC + 1)));
-                    dissambled += " 0x" + temp.ToString("X4");
+                    temp = (UInt16)((Read((UInt16)(PC + 2)) << 8) | Read((UInt16)(PC + 1)));
+                    dissambled.AppendFormat(" 0x{0}", temp.ToString("X2"));
                     break;
             }
-            return dissambled;
+            return dissambled.ToString();
         }
 
         public string GetRegisters()
         {
             UInt16 memoryAddress = (UInt16)((GetRegisterValue(Registers.H) << 8) | GetRegisterValue(Registers.L));
 
-            string result = string.Empty;
+            StringBuilder result = new StringBuilder();
 
-            result += "A = 0x" + registers[0].ToString("X2") + " ";
-            result += "B = 0x" + registers[1].ToString("X2") + " ";
-            result += "C = 0x" + registers[2].ToString("X2") + " ";
-            result += "D = 0x" + registers[3].ToString("X2") + " ";
-            result += "E = 0x" + registers[4].ToString("X2") + "\n";
-            result += "H = 0x" + registers[5].ToString("X2") + " ";
-            result += "L = 0x" + registers[6].ToString("X2") + " ";
-            result += "M = 0x" + Read(memoryAddress).ToString("X2");
+            result.AppendFormat("A = 0x{0} ", registers[0].ToString("X2"));
+            result.AppendFormat("B = 0x{0} ", registers[1].ToString("X2"));
+            result.AppendFormat("C = 0x{0} ", registers[2].ToString("X2"));
+            result.AppendFormat("D = 0x{0} ", registers[3].ToString("X2"));
+            result.AppendFormat("E = 0x{0}\n", registers[4].ToString("X2"));
+            result.AppendFormat("H = 0x{0} ", registers[5].ToString("X2"));
+            result.AppendFormat("L = 0x{0} ", registers[6].ToString("X2"));
+            result.AppendFormat("M = 0x{0} ", Read(memoryAddress).ToString("X2"));
 
-            return result;
+            return result.ToString();
         }
 
         public string GetFalgs()
         {
-            string result = "";
+            StringBuilder result = new StringBuilder();
 
-            result += "C = " + (GetFlag(Flags.C) ? 1 : 0).ToString();
-            result += "\tZ = " + (GetFlag(Flags.Z) ? 1 : 0).ToString();
-            result += "\tP = " + (GetFlag(Flags.P) ? 1 : 0).ToString();
-            result += "\tS = " + (GetFlag(Flags.S) ? 1 : 0).ToString();
+            result.AppendFormat("C = {0}", GetFlag(Flags.C) ? "1" : "0");
+            result.AppendFormat("\tZ = {0}", GetFlag(Flags.Z) ? "1" : "0");
+            result.AppendFormat("\tP = {0}", GetFlag(Flags.P) ? "1" : "0");
+            result.AppendFormat("\tS = {0}", GetFlag(Flags.S) ? "1" : "0");
 
-            return result;
+            return result.ToString();
         }
 
         public void Cycle()

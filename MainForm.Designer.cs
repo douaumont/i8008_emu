@@ -68,6 +68,7 @@ namespace i8008_emu_GUI
             this.LoadMemoryButton = new System.Windows.Forms.ToolStripButton();
             this.ResetMemoryButton = new System.Windows.Forms.ToolStripButton();
             this.ResetPortsButton = new System.Windows.Forms.ToolStripButton();
+            this.ResetEverythingButton = new System.Windows.Forms.ToolStripButton();
             this.MemoryGroupBox.SuspendLayout();
             this.InputPortsGroupBox.SuspendLayout();
             this.OutputPortsGroupBox.SuspendLayout();
@@ -89,9 +90,11 @@ namespace i8008_emu_GUI
             this.MemoryGroupBox.Controls.Add(this.PreviousPageButton);
             this.MemoryGroupBox.Controls.Add(this.MemoryRichTextBox);
             this.MemoryGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.MemoryGroupBox.Location = new System.Drawing.Point(12, 28);
+            this.MemoryGroupBox.Location = new System.Drawing.Point(18, 43);
+            this.MemoryGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MemoryGroupBox.Name = "MemoryGroupBox";
-            this.MemoryGroupBox.Size = new System.Drawing.Size(388, 524);
+            this.MemoryGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MemoryGroupBox.Size = new System.Drawing.Size(582, 806);
             this.MemoryGroupBox.TabIndex = 0;
             this.MemoryGroupBox.TabStop = false;
             this.MemoryGroupBox.Text = "Memory";
@@ -102,11 +105,9 @@ namespace i8008_emu_GUI
             this.InputPortsGroupBox.Controls.Add(this.ReadFromInputPortButton);
             this.InputPortsGroupBox.Controls.Add(this.WriteToInputPortButton);
             this.InputPortsGroupBox.Controls.Add(this.InputValueForPort);
-            this.InputPortsGroupBox.Location = new System.Drawing.Point(6, 315);
-            this.InputPortsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InputPortsGroupBox.Location = new System.Drawing.Point(9, 485);
             this.InputPortsGroupBox.Name = "InputPortsGroupBox";
-            this.InputPortsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.InputPortsGroupBox.Size = new System.Drawing.Size(183, 204);
+            this.InputPortsGroupBox.Size = new System.Drawing.Size(274, 314);
             this.InputPortsGroupBox.TabIndex = 5;
             this.InputPortsGroupBox.TabStop = false;
             this.InputPortsGroupBox.Text = "Input Ports";
@@ -116,19 +117,17 @@ namespace i8008_emu_GUI
             this.InputPortSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.InputPortSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.InputPortSelection.FormattingEnabled = true;
-            this.InputPortSelection.Location = new System.Drawing.Point(4, 19);
-            this.InputPortSelection.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InputPortSelection.Location = new System.Drawing.Point(6, 29);
             this.InputPortSelection.Name = "InputPortSelection";
-            this.InputPortSelection.Size = new System.Drawing.Size(175, 26);
+            this.InputPortSelection.Size = new System.Drawing.Size(260, 34);
             this.InputPortSelection.TabIndex = 3;
             // 
             // ReadFromInputPortButton
             // 
             this.ReadFromInputPortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ReadFromInputPortButton.Location = new System.Drawing.Point(99, 83);
-            this.ReadFromInputPortButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ReadFromInputPortButton.Location = new System.Drawing.Point(148, 128);
             this.ReadFromInputPortButton.Name = "ReadFromInputPortButton";
-            this.ReadFromInputPortButton.Size = new System.Drawing.Size(80, 26);
+            this.ReadFromInputPortButton.Size = new System.Drawing.Size(120, 40);
             this.ReadFromInputPortButton.TabIndex = 2;
             this.ReadFromInputPortButton.Text = "Read";
             this.ReadFromInputPortButton.UseVisualStyleBackColor = true;
@@ -137,10 +136,9 @@ namespace i8008_emu_GUI
             // WriteToInputPortButton
             // 
             this.WriteToInputPortButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.WriteToInputPortButton.Location = new System.Drawing.Point(4, 83);
-            this.WriteToInputPortButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.WriteToInputPortButton.Location = new System.Drawing.Point(6, 128);
             this.WriteToInputPortButton.Name = "WriteToInputPortButton";
-            this.WriteToInputPortButton.Size = new System.Drawing.Size(80, 26);
+            this.WriteToInputPortButton.Size = new System.Drawing.Size(120, 40);
             this.WriteToInputPortButton.TabIndex = 1;
             this.WriteToInputPortButton.Text = "Write";
             this.WriteToInputPortButton.UseVisualStyleBackColor = true;
@@ -149,21 +147,18 @@ namespace i8008_emu_GUI
             // InputValueForPort
             // 
             this.InputValueForPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InputValueForPort.Location = new System.Drawing.Point(4, 52);
-            this.InputValueForPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.InputValueForPort.Location = new System.Drawing.Point(6, 80);
             this.InputValueForPort.Name = "InputValueForPort";
-            this.InputValueForPort.Size = new System.Drawing.Size(175, 24);
+            this.InputValueForPort.Size = new System.Drawing.Size(260, 32);
             this.InputValueForPort.TabIndex = 0;
             this.InputValueForPort.KeyUp += new System.Windows.Forms.KeyEventHandler(this.InputValueForPort_KeyUp);
             // 
             // OutputPortsGroupBox
             // 
             this.OutputPortsGroupBox.Controls.Add(this.OutputPortsRichTextBox);
-            this.OutputPortsGroupBox.Location = new System.Drawing.Point(200, 315);
-            this.OutputPortsGroupBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OutputPortsGroupBox.Location = new System.Drawing.Point(300, 485);
             this.OutputPortsGroupBox.Name = "OutputPortsGroupBox";
-            this.OutputPortsGroupBox.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.OutputPortsGroupBox.Size = new System.Drawing.Size(183, 204);
+            this.OutputPortsGroupBox.Size = new System.Drawing.Size(274, 314);
             this.OutputPortsGroupBox.TabIndex = 4;
             this.OutputPortsGroupBox.TabStop = false;
             this.OutputPortsGroupBox.Text = "Output Ports";
@@ -172,11 +167,10 @@ namespace i8008_emu_GUI
             // 
             this.OutputPortsRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.OutputPortsRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.OutputPortsRichTextBox.Location = new System.Drawing.Point(4, 19);
-            this.OutputPortsRichTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.OutputPortsRichTextBox.Location = new System.Drawing.Point(6, 29);
             this.OutputPortsRichTextBox.Name = "OutputPortsRichTextBox";
             this.OutputPortsRichTextBox.ReadOnly = true;
-            this.OutputPortsRichTextBox.Size = new System.Drawing.Size(177, 192);
+            this.OutputPortsRichTextBox.Size = new System.Drawing.Size(264, 293);
             this.OutputPortsRichTextBox.TabIndex = 0;
             this.OutputPortsRichTextBox.Text = "";
             // 
@@ -184,18 +178,20 @@ namespace i8008_emu_GUI
             // 
             this.PageNumberTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.PageNumberTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PageNumberTextBox.Location = new System.Drawing.Point(168, 279);
+            this.PageNumberTextBox.Location = new System.Drawing.Point(252, 429);
+            this.PageNumberTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PageNumberTextBox.Name = "PageNumberTextBox";
-            this.PageNumberTextBox.Size = new System.Drawing.Size(50, 24);
+            this.PageNumberTextBox.Size = new System.Drawing.Size(73, 32);
             this.PageNumberTextBox.TabIndex = 3;
             this.PageNumberTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PageNumberTextBox_KeyPress);
             // 
             // NextPageButton
             // 
             this.NextPageButton.FlatAppearance.BorderSize = 0;
-            this.NextPageButton.Location = new System.Drawing.Point(222, 279);
+            this.NextPageButton.Location = new System.Drawing.Point(333, 429);
+            this.NextPageButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.NextPageButton.Name = "NextPageButton";
-            this.NextPageButton.Size = new System.Drawing.Size(40, 24);
+            this.NextPageButton.Size = new System.Drawing.Size(60, 37);
             this.NextPageButton.TabIndex = 2;
             this.NextPageButton.Text = "→";
             this.NextPageButton.UseVisualStyleBackColor = true;
@@ -204,9 +200,10 @@ namespace i8008_emu_GUI
             // PreviousPageButton
             // 
             this.PreviousPageButton.FlatAppearance.BorderSize = 0;
-            this.PreviousPageButton.Location = new System.Drawing.Point(123, 279);
+            this.PreviousPageButton.Location = new System.Drawing.Point(184, 429);
+            this.PreviousPageButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PreviousPageButton.Name = "PreviousPageButton";
-            this.PreviousPageButton.Size = new System.Drawing.Size(40, 24);
+            this.PreviousPageButton.Size = new System.Drawing.Size(60, 37);
             this.PreviousPageButton.TabIndex = 1;
             this.PreviousPageButton.Text = "←";
             this.PreviousPageButton.UseVisualStyleBackColor = true;
@@ -219,11 +216,12 @@ namespace i8008_emu_GUI
             this.MemoryRichTextBox.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.MemoryRichTextBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.MemoryRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(0)))));
-            this.MemoryRichTextBox.Location = new System.Drawing.Point(6, 23);
+            this.MemoryRichTextBox.Location = new System.Drawing.Point(9, 35);
+            this.MemoryRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MemoryRichTextBox.Name = "MemoryRichTextBox";
             this.MemoryRichTextBox.ReadOnly = true;
             this.MemoryRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.MemoryRichTextBox.Size = new System.Drawing.Size(376, 247);
+            this.MemoryRichTextBox.Size = new System.Drawing.Size(562, 378);
             this.MemoryRichTextBox.TabIndex = 0;
             this.MemoryRichTextBox.Text = "";
             // 
@@ -240,9 +238,11 @@ namespace i8008_emu_GUI
             this.ProcessorStatusGroupBox.Controls.Add(this.groupBox1);
             this.ProcessorStatusGroupBox.Controls.Add(this.ControlButtons);
             this.ProcessorStatusGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProcessorStatusGroupBox.Location = new System.Drawing.Point(406, 28);
+            this.ProcessorStatusGroupBox.Location = new System.Drawing.Point(609, 43);
+            this.ProcessorStatusGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ProcessorStatusGroupBox.Name = "ProcessorStatusGroupBox";
-            this.ProcessorStatusGroupBox.Size = new System.Drawing.Size(366, 524);
+            this.ProcessorStatusGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ProcessorStatusGroupBox.Size = new System.Drawing.Size(549, 806);
             this.ProcessorStatusGroupBox.TabIndex = 1;
             this.ProcessorStatusGroupBox.TabStop = false;
             this.ProcessorStatusGroupBox.Text = "Processor";
@@ -250,9 +250,11 @@ namespace i8008_emu_GUI
             // StackGroupBox
             // 
             this.StackGroupBox.Controls.Add(this.StackRichTextBox);
-            this.StackGroupBox.Location = new System.Drawing.Point(0, 294);
+            this.StackGroupBox.Location = new System.Drawing.Point(0, 452);
+            this.StackGroupBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StackGroupBox.Name = "StackGroupBox";
-            this.StackGroupBox.Size = new System.Drawing.Size(366, 166);
+            this.StackGroupBox.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.StackGroupBox.Size = new System.Drawing.Size(549, 255);
             this.StackGroupBox.TabIndex = 12;
             this.StackGroupBox.TabStop = false;
             this.StackGroupBox.Text = "Stack";
@@ -264,11 +266,12 @@ namespace i8008_emu_GUI
             this.StackRichTextBox.Enabled = false;
             this.StackRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.StackRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.StackRichTextBox.Location = new System.Drawing.Point(9, 21);
+            this.StackRichTextBox.Location = new System.Drawing.Point(14, 32);
+            this.StackRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StackRichTextBox.Name = "StackRichTextBox";
             this.StackRichTextBox.ReadOnly = true;
             this.StackRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.StackRichTextBox.Size = new System.Drawing.Size(353, 136);
+            this.StackRichTextBox.Size = new System.Drawing.Size(528, 207);
             this.StackRichTextBox.TabIndex = 1;
             this.StackRichTextBox.Text = "";
             // 
@@ -288,57 +291,63 @@ namespace i8008_emu_GUI
             this.tableLayoutPanel1.Controls.Add(this.HaltedLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.FrequencyLabel, 1, 2);
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 228);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 351);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(366, 62);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(549, 95);
             this.tableLayoutPanel1.TabIndex = 11;
             // 
             // CyclesLabel
             // 
             this.CyclesLabel.AutoSize = true;
-            this.CyclesLabel.Location = new System.Drawing.Point(4, 1);
+            this.CyclesLabel.Location = new System.Drawing.Point(5, 1);
+            this.CyclesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CyclesLabel.Name = "CyclesLabel";
-            this.CyclesLabel.Size = new System.Drawing.Size(52, 16);
+            this.CyclesLabel.Size = new System.Drawing.Size(78, 25);
             this.CyclesLabel.TabIndex = 7;
             this.CyclesLabel.Text = "Cycles:";
             // 
             // SP_Label
             // 
             this.SP_Label.AutoSize = true;
-            this.SP_Label.Location = new System.Drawing.Point(186, 21);
+            this.SP_Label.Location = new System.Drawing.Point(279, 32);
+            this.SP_Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.SP_Label.Name = "SP_Label";
-            this.SP_Label.Size = new System.Drawing.Size(26, 16);
+            this.SP_Label.Size = new System.Drawing.Size(39, 25);
             this.SP_Label.TabIndex = 10;
             this.SP_Label.Text = "SP";
             // 
             // DisassembledLabel
             // 
             this.DisassembledLabel.AutoSize = true;
-            this.DisassembledLabel.Location = new System.Drawing.Point(186, 1);
+            this.DisassembledLabel.Location = new System.Drawing.Point(279, 1);
+            this.DisassembledLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.DisassembledLabel.Name = "DisassembledLabel";
-            this.DisassembledLabel.Size = new System.Drawing.Size(99, 16);
+            this.DisassembledLabel.Size = new System.Drawing.Size(141, 25);
             this.DisassembledLabel.TabIndex = 8;
             this.DisassembledLabel.Text = "Disassembled:";
             // 
             // PC_Label
             // 
             this.PC_Label.AutoSize = true;
-            this.PC_Label.Location = new System.Drawing.Point(4, 21);
+            this.PC_Label.Location = new System.Drawing.Point(5, 32);
+            this.PC_Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PC_Label.Name = "PC_Label";
-            this.PC_Label.Size = new System.Drawing.Size(26, 16);
+            this.PC_Label.Size = new System.Drawing.Size(40, 25);
             this.PC_Label.TabIndex = 9;
             this.PC_Label.Text = "PC";
             // 
             // HaltedLabel
             // 
             this.HaltedLabel.AutoSize = true;
-            this.HaltedLabel.Location = new System.Drawing.Point(4, 41);
+            this.HaltedLabel.Location = new System.Drawing.Point(5, 63);
+            this.HaltedLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.HaltedLabel.Name = "HaltedLabel";
-            this.HaltedLabel.Size = new System.Drawing.Size(54, 16);
+            this.HaltedLabel.Size = new System.Drawing.Size(79, 25);
             this.HaltedLabel.TabIndex = 11;
             this.HaltedLabel.Text = "Halted: ";
             this.HaltedLabel.TextChanged += new System.EventHandler(this.HaltedLabel_TextChanged);
@@ -346,19 +355,24 @@ namespace i8008_emu_GUI
             // FrequencyLabel
             // 
             this.FrequencyLabel.AutoSize = true;
+            this.FrequencyLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.FrequencyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FrequencyLabel.Location = new System.Drawing.Point(186, 41);
+            this.FrequencyLabel.Location = new System.Drawing.Point(279, 63);
+            this.FrequencyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FrequencyLabel.Name = "FrequencyLabel";
-            this.FrequencyLabel.Size = new System.Drawing.Size(72, 16);
+            this.FrequencyLabel.Size = new System.Drawing.Size(105, 25);
             this.FrequencyLabel.TabIndex = 12;
             this.FrequencyLabel.Text = "Frequency";
+            this.FrequencyLabel.Click += new System.EventHandler(this.FrequencyLabel_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.FlagsRichTextBox);
-            this.groupBox2.Location = new System.Drawing.Point(0, 159);
+            this.groupBox2.Location = new System.Drawing.Point(0, 245);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(366, 63);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(549, 97);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Flags";
@@ -370,20 +384,23 @@ namespace i8008_emu_GUI
             this.FlagsRichTextBox.Enabled = false;
             this.FlagsRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FlagsRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.FlagsRichTextBox.Location = new System.Drawing.Point(6, 21);
+            this.FlagsRichTextBox.Location = new System.Drawing.Point(9, 32);
+            this.FlagsRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.FlagsRichTextBox.Name = "FlagsRichTextBox";
             this.FlagsRichTextBox.ReadOnly = true;
             this.FlagsRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.FlagsRichTextBox.Size = new System.Drawing.Size(355, 36);
+            this.FlagsRichTextBox.Size = new System.Drawing.Size(530, 53);
             this.FlagsRichTextBox.TabIndex = 1;
             this.FlagsRichTextBox.Text = "";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.RegistersRichTextBox);
-            this.groupBox1.Location = new System.Drawing.Point(0, 74);
+            this.groupBox1.Location = new System.Drawing.Point(0, 114);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(366, 79);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(549, 122);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registers";
@@ -395,11 +412,12 @@ namespace i8008_emu_GUI
             this.RegistersRichTextBox.Enabled = false;
             this.RegistersRichTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.RegistersRichTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.RegistersRichTextBox.Location = new System.Drawing.Point(5, 21);
+            this.RegistersRichTextBox.Location = new System.Drawing.Point(8, 32);
+            this.RegistersRichTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RegistersRichTextBox.Name = "RegistersRichTextBox";
             this.RegistersRichTextBox.ReadOnly = true;
             this.RegistersRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.RegistersRichTextBox.Size = new System.Drawing.Size(357, 53);
+            this.RegistersRichTextBox.Size = new System.Drawing.Size(534, 79);
             this.RegistersRichTextBox.TabIndex = 0;
             this.RegistersRichTextBox.Text = "";
             // 
@@ -414,18 +432,20 @@ namespace i8008_emu_GUI
             this.ControlButtons.Controls.Add(this.StepButton, 3, 0);
             this.ControlButtons.Controls.Add(this.StopButton, 1, 0);
             this.ControlButtons.Controls.Add(this.ResetButton, 2, 0);
-            this.ControlButtons.Location = new System.Drawing.Point(6, 21);
+            this.ControlButtons.Location = new System.Drawing.Point(9, 32);
+            this.ControlButtons.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ControlButtons.Name = "ControlButtons";
             this.ControlButtons.RowCount = 1;
             this.ControlButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ControlButtons.Size = new System.Drawing.Size(354, 47);
+            this.ControlButtons.Size = new System.Drawing.Size(531, 72);
             this.ControlButtons.TabIndex = 4;
             // 
             // RunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(3, 3);
+            this.RunButton.Location = new System.Drawing.Point(4, 5);
+            this.RunButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.RunButton.Name = "RunButton";
-            this.RunButton.Size = new System.Drawing.Size(82, 40);
+            this.RunButton.Size = new System.Drawing.Size(123, 62);
             this.RunButton.TabIndex = 0;
             this.RunButton.Text = "Run";
             this.RunButton.UseVisualStyleBackColor = true;
@@ -433,9 +453,10 @@ namespace i8008_emu_GUI
             // 
             // StepButton
             // 
-            this.StepButton.Location = new System.Drawing.Point(267, 3);
+            this.StepButton.Location = new System.Drawing.Point(400, 5);
+            this.StepButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StepButton.Name = "StepButton";
-            this.StepButton.Size = new System.Drawing.Size(84, 40);
+            this.StepButton.Size = new System.Drawing.Size(126, 62);
             this.StepButton.TabIndex = 3;
             this.StepButton.Text = "Step";
             this.StepButton.UseVisualStyleBackColor = true;
@@ -443,9 +464,10 @@ namespace i8008_emu_GUI
             // 
             // StopButton
             // 
-            this.StopButton.Location = new System.Drawing.Point(91, 3);
+            this.StopButton.Location = new System.Drawing.Point(136, 5);
+            this.StopButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.StopButton.Name = "StopButton";
-            this.StopButton.Size = new System.Drawing.Size(82, 40);
+            this.StopButton.Size = new System.Drawing.Size(123, 62);
             this.StopButton.TabIndex = 1;
             this.StopButton.Text = "Stop";
             this.StopButton.UseVisualStyleBackColor = true;
@@ -453,9 +475,10 @@ namespace i8008_emu_GUI
             // 
             // ResetButton
             // 
-            this.ResetButton.Location = new System.Drawing.Point(179, 3);
+            this.ResetButton.Location = new System.Drawing.Point(268, 5);
+            this.ResetButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(82, 40);
+            this.ResetButton.Size = new System.Drawing.Size(123, 62);
             this.ResetButton.TabIndex = 2;
             this.ResetButton.Text = "Reset";
             this.ResetButton.UseVisualStyleBackColor = true;
@@ -471,11 +494,12 @@ namespace i8008_emu_GUI
             this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LoadMemoryButton,
             this.ResetMemoryButton,
-            this.ResetPortsButton});
+            this.ResetPortsButton,
+            this.ResetEverythingButton});
             this.ToolStrip.Location = new System.Drawing.Point(0, 0);
             this.ToolStrip.Name = "ToolStrip";
-            this.ToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
-            this.ToolStrip.Size = new System.Drawing.Size(784, 25);
+            this.ToolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.ToolStrip.Size = new System.Drawing.Size(1176, 31);
             this.ToolStrip.TabIndex = 2;
             this.ToolStrip.Text = "ToolStrip";
             // 
@@ -487,7 +511,7 @@ namespace i8008_emu_GUI
             this.LoadMemoryButton.Image = ((System.Drawing.Image)(resources.GetObject("LoadMemoryButton.Image")));
             this.LoadMemoryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.LoadMemoryButton.Name = "LoadMemoryButton";
-            this.LoadMemoryButton.Size = new System.Drawing.Size(87, 22);
+            this.LoadMemoryButton.Size = new System.Drawing.Size(122, 26);
             this.LoadMemoryButton.Text = "Load Memory";
             this.LoadMemoryButton.ToolTipText = "Load Memory";
             this.LoadMemoryButton.Click += new System.EventHandler(this.LoadMemoryButton_Click);
@@ -499,7 +523,7 @@ namespace i8008_emu_GUI
             this.ResetMemoryButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetMemoryButton.Image")));
             this.ResetMemoryButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ResetMemoryButton.Name = "ResetMemoryButton";
-            this.ResetMemoryButton.Size = new System.Drawing.Size(91, 22);
+            this.ResetMemoryButton.Size = new System.Drawing.Size(129, 33);
             this.ResetMemoryButton.Text = "Reset Memory";
             this.ResetMemoryButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.ResetMemoryButton.Click += new System.EventHandler(this.ResetMemoryButton_Click);
@@ -511,20 +535,32 @@ namespace i8008_emu_GUI
             this.ResetPortsButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetPortsButton.Image")));
             this.ResetPortsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ResetPortsButton.Name = "ResetPortsButton";
-            this.ResetPortsButton.Size = new System.Drawing.Size(74, 22);
+            this.ResetPortsButton.Size = new System.Drawing.Size(108, 33);
             this.ResetPortsButton.Text = "Reset Ports";
             this.ResetPortsButton.Click += new System.EventHandler(this.ResetPortsButton_Click);
             // 
+            // ResetEverythingButton
+            // 
+            this.ResetEverythingButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ResetEverythingButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ResetEverythingButton.Image = ((System.Drawing.Image)(resources.GetObject("ResetEverythingButton.Image")));
+            this.ResetEverythingButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ResetEverythingButton.Name = "ResetEverythingButton";
+            this.ResetEverythingButton.Size = new System.Drawing.Size(151, 33);
+            this.ResetEverythingButton.Text = "Reset Everything";
+            this.ResetEverythingButton.Click += new System.EventHandler(this.ResetEverythingButton_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(1176, 863);
             this.Controls.Add(this.ToolStrip);
             this.Controls.Add(this.ProcessorStatusGroupBox);
             this.Controls.Add(this.MemoryGroupBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -588,6 +624,7 @@ namespace i8008_emu_GUI
         private System.Windows.Forms.ComboBox InputPortSelection;
         private System.Windows.Forms.TextBox InputValueForPort;
         private System.Windows.Forms.ToolStripButton ResetPortsButton;
+        private System.Windows.Forms.ToolStripButton ResetEverythingButton;
     }
 }
 
