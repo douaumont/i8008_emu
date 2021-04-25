@@ -279,8 +279,13 @@ namespace i8008_emu
 
         private byte Read(UInt16 address)
         {
+            byte valueToReturn = 0;
             address = (UInt16)(address & 0b0011111111111111);
-            return memory[address];
+            if (address < 14 * 1024)
+            {
+                valueToReturn = memory[address];
+            }
+            return valueToReturn;
         }
         private void Write(UInt16 address, byte value)
         {
